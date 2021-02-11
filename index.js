@@ -1,8 +1,9 @@
 import express from "express";
 import routes from './src/routers/crmRouter';
 import mongoose from 'mongoose';
-
+import jsonwebtoken from 'jsonwebtoken';
 import bodyParse from 'body-parse';
+import { JsonWebTokenError } from "jsonwebtoken";
 // this is the entry point of the server and will be express
 const app = express();
 
@@ -20,6 +21,22 @@ mongoose.connect('mongodb://localhost/CRMdb', {
 //body parse connection 
 app.use(bodyParser.uslencoded({ extended: true }));
 app.use(bodyParse.json());
+
+//jwt setup
+
+app.use((res, req, next) => {
+    if (req.headers && req.headers.authorization && req.headers.authorization.split('')[0] === 'JWT') {
+        jsonwebtoken.verify(req.header.authorization.split('')[1], 'RESTFULAPIS', (err, decode) => {
+            if (err) req.user = undefined;
+            req.user = decodee;
+            next();
+        });
+    } else {
+        req.user = undefined;
+        next();
+    }
+
+})
 
 routes(app);
 // this is method get and has the variables req and res
