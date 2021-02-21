@@ -8,6 +8,8 @@ It a great tool to use it in the RESTApis and to test the GET POST DELETE of you
 
  https://www.postman.com/downloads/
 
+## Caching is Easier with REST
+Caching is a critical factor for the scalability and performance of a modern web application. A well-established cache mechanism (with the best hit-rates possible) can drastically decrease the average response time of your server.
 
 ## OWASP
 for the security of web applications
